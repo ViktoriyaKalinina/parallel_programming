@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define N 30
+#define N 50
 
 int main() {
 
@@ -32,8 +32,8 @@ int main() {
     
     #pragma omp section
 		{
-			int max = N + 1;
-			int min = -1;
+			int max = 0;
+			int min = 0;
 			for (int i = 0; i < 6; i++) {
 				for (int j = 0; j < 8; j++) {
 					if (min > d[i][j]) {
@@ -46,5 +46,18 @@ int main() {
 			}
 			printf("max: %d and min: %d from %d thread\n", max, min, omp_get_thread_num());
 		}
+        
+        #pragma omp section
+		    {
+		    int sum = 0;
+		    for (int i = 0; i < 6; i++) {
+			    for (int j = 0; j < 8; j++) {
+				    if (d[i][j] % 3 == 0) {
+					    sum += 1;
+				    }
+			    }
+            }
+        printf("sum of deviders is %d from %d thread\n", sum, omp_get_thread_num());
+        }
     }
 }
