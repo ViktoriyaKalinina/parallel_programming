@@ -1,6 +1,5 @@
 #include <omp.h>
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
 
 #define N 30
@@ -8,8 +7,6 @@
 int main() {
 
     int d[6][8];
-    srand(time(NULL));
-
     for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 8; j++) {
 			d[i][j] = rand() % N;
