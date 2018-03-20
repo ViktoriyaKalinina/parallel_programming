@@ -9,7 +9,7 @@ int main () {
     int a[N];
     int count = 0;
 
-    #pragma omp parallel for shared(count)
+    #pragma omp parallel for num_threads(3) shared(count)
     for (int i = 0; i < N; i++) {
         a[i] = rand() % N;
         if (a[i] % D == 0) {
