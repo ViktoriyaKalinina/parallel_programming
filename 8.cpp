@@ -2,24 +2,25 @@
 #include<stdio.h>
 
 #define M 10
+#define N 5
 
 int main () {
-float A[M][M], b[M], c[M];
+float A[M][N], b[M], c[M];
 int i, j, rank;
 int total;
 
 for (i=0; i < M; i++) {
-  for (j=0; j < M; j++)
+  for (j=0; j < N; j++)
     A[i][j] = (j+1) * 1.0;
   b[i] = 1.0 * (i+1);
   c[i] = 0.0;
  }
 
-printf("Вывод значений матрицы A и вектора b на экран: \n");
+printf("Значения матрицы A и вектора b: \n");
 
 for (i=0; i < M; i++){
   printf("  A[%d]= ",i);
-  for (j=0; j < M; j++)
+  for (j=0; j < N; j++)
     printf("%.1f ",A[i][j]);
   printf("  b[%d]= %.1f\n",i,b[i]);
   }
@@ -31,12 +32,12 @@ for (i=0; i < M; i++){
 #pragma omp for private(j)
   for (i=0; i < M; i++)
     {
-    for (j=0; j < M; j++)
+    for (j=0; j < N; j++)
       c[i] += (A[i][j] * b[j]);
 
     #pragma omp critical
       {
-      printf(" rank= %d i= %d c[%f]\n", rank,i,c[i]);
+      printf("Thread = %d Cycle number i = %d Vector c[%f]\n", rank,i,c[i]);
       }
     }
   }
