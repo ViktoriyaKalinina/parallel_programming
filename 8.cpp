@@ -1,13 +1,16 @@
 #include <omp.h>
 #include<stdio.h>
+#include <time.h>
 
 #define M 10
 #define N 5
 
-int main () {
+int main (int argc, char *argv[]) {
 float A[M][N], b[M], c[M];
 int i, j, rank;
 int total;
+clock_t start, end;
+start = clock();
 
 for (i=0; i < M; i++) {
   for (j=0; j < N; j++)
@@ -24,7 +27,10 @@ for (i=0; i < M; i++){
     printf("%.1f ",A[i][j]);
   printf("  b[%d]= %.1f\n",i,b[i]);
   }
+end = clock();
+printf("%.10lf\n", ( end - start) );
 
+start = clock();
 #pragma omp parallel shared(A,b,c,total) private(rank,i)
   {
   rank = omp_get_thread_num();
@@ -41,4 +47,6 @@ for (i=0; i < M; i++){
       }
     }
   }
+  end = clock();
+  printf("%.10lf\n", (end - start));
 }
