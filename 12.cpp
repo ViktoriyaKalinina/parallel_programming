@@ -3,7 +3,7 @@
 
 #define N 30
 
-int main (int argc, char *argv[]) {
+int main () {
   omp_set_num_threads(8);
   int f = 1;
   int thread_num;
